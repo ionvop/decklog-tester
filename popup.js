@@ -57,6 +57,7 @@ btnTest.addEventListener("click", async () => {
                 form.action = "http://localhost:8000";
                 form.method = "post";
                 form.enctype = "multipart/form-data";
+                form.target = "_blank";
                 let input = document.createElement("input");
                 input.type = "hidden";
                 input.name = "data";
