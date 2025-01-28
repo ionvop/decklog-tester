@@ -6,10 +6,14 @@ ob_flush();
 flush();
 
 foreach ($data["deckImages"] as $key => $value) {
-    $data["deckImages"][$key]["data"] = "data:image/png;base64," . base64_encode(file_get_contents($data["deckImages"][$key]["data"]));
     $max = count($data["deckImages"]);
     $current = $key + 1;
-    echo "{$current}/{$max} {$data['deckImages'][$key]['name']} done<br>";
+    $percent = round($current / $max * 100) . "%";
+    echo "{$current}/{$max} GET {$data['deckImages'][$key]['data']}";
+    ob_flush();
+    flush();
+    $data["deckImages"][$key]["data"] = "data:image/png;base64," . base64_encode(file_get_contents($data["deckImages"][$key]["data"]));
+    echo " done {$percent}<br>";
     ob_flush();
     flush();
 }
