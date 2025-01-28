@@ -8,8 +8,14 @@ btnTest.addEventListener("click", async () => {
             target: { tabId: tab.id },
             function: () => {
                 let deckView = document.querySelector(".deckview");
+                let isStandard = deckView.querySelectorAll(".row").length == 2;
                 let rideDeckView = deckView.querySelectorAll(".row")[0];
                 let mainDeckView = deckView.querySelectorAll(".row")[1];
+
+                if (isStandard == false) {
+                    mainDeckView = deckView.querySelectorAll(".row")[0];
+                }
+                
                 let deckImages = [];
                 let rideDeck = [];
                 let mainDeck = [];
@@ -30,11 +36,13 @@ btnTest.addEventListener("click", async () => {
                     });
                 }
 
-                for (let cardContainer of rideDeckView.querySelectorAll(".card-container")) {
-                    let card = cardContainer.querySelector("img");
-                    let image = card.src;
-                    image = image.substring(image.lastIndexOf("/") + 1);
-                    rideDeck.push(image);
+                if (isStandard) {
+                    for (let cardContainer of rideDeckView.querySelectorAll(".card-container")) {
+                        let card = cardContainer.querySelector("img");
+                        let image = card.src;
+                        image = image.substring(image.lastIndexOf("/") + 1);
+                        rideDeck.push(image);
+                    }
                 }
 
                 for (let cardContainer of mainDeckView.querySelectorAll(".card-container")) {
