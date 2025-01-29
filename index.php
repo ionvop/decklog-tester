@@ -8,12 +8,11 @@ flush();
 foreach ($data["deckImages"] as $key => $value) {
     $max = count($data["deckImages"]);
     $current = $key + 1;
-    $percent = round($current / $max * 100) . "%";
     echo "{$current}/{$max} GET {$data['deckImages'][$key]['data']}";
     ob_flush();
     flush();
     $data["deckImages"][$key]["data"] = "data:image/png;base64," . base64_encode(file_get_contents($data["deckImages"][$key]["data"]));
-    echo " done {$percent}<br>";
+    echo " done<br>";
     ob_flush();
     flush();
 }
