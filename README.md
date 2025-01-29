@@ -46,8 +46,22 @@ Follow these steps to install and set up the **Deck Log Tester**:
    - `popup.js`
    - `icon.png`
 
-### Step 4: Test the Extension
+### Step 4: Run the Extension
 1. Open a valid Deck Log page on the website `https://decklog-en.bushiroad.com/view/`.
 2. Click the **Deck Log Tester** icon in your Chrome extensions bar.
 3. Click the **Test Deck** button in the popup.
 4. The **Deck Log Tester** will open a new tab with the board simulator.
+
+## Keybindings
+
+| Key | Action |
+| --- | --- |
+| `LMB` | Drag a card |
+| `MMB` | Flip a card |
+| `RMB` | Rotate a card |
+| `Space` | Shuffle the deck |
+| `C` | Zoom into a card |
+| `S` | Preview all cards within an area |
+| `R` | Return the card preview |
+| `B` | Put a card in the bottom of the deck |
+| `N` | Reset the board |
