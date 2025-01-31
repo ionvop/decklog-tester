@@ -8,17 +8,24 @@ btnTest.addEventListener("click", async () => {
             target: { tabId: tab.id },
             function: () => {
                 let deckView = document.querySelector(".deckview");
-                let isStandard = deckView.querySelectorAll(".row").length == 2;
-                let rideDeckView = deckView.querySelectorAll(".row")[0];
-                let mainDeckView = deckView.querySelectorAll(".row")[1];
+                let deckViewRows = deckView.querySelectorAll(".row");
+                let rideDeckView;
+                let mainDeckView;
+                let gDeckView;
 
-                if (isStandard == false) {
-                    mainDeckView = deckView.querySelectorAll(".row")[0];
+                if (deckView.querySelector("div").innerText.includes("Ride")) {
+                    rideDeckView = deckViewRows[0];
+                    mainDeckView = deckViewRows[1];
+                    gDeckView = deckViewRows[2];
+                } else {
+                    mainDeckView = deckViewRows[0];
+                    gDeckView = deckViewRows[1];
                 }
                 
                 let deckImages = [];
                 let rideDeck = [];
                 let mainDeck = [];
+                let gDeck = [];
 
                 for (let cardContainer of deckView.querySelectorAll(".card-container")) {
                     let card = cardContainer.querySelector("img");
@@ -30,13 +37,18 @@ btnTest.addEventListener("click", async () => {
 
                     let image = card.src;
                     image = image.substring(image.lastIndexOf("/") + 1);
+
+                    if (deckImages.find(i => i.data == card.src)) {
+                        continue;
+                    }
+
                     deckImages.push({
                         name: image,
                         data: card.src
                     });
                 }
 
-                if (isStandard) {
+                if (rideDeckView) {
                     for (let cardContainer of rideDeckView.querySelectorAll(".card-container")) {
                         let card = cardContainer.querySelector("img");
                         let image = card.src;
@@ -45,20 +57,35 @@ btnTest.addEventListener("click", async () => {
                     }
                 }
 
-                for (let cardContainer of mainDeckView.querySelectorAll(".card-container")) {
-                    let card = cardContainer.querySelector("img");
-                    let image = card.src;
-                    image = image.substring(image.lastIndexOf("/") + 1);
+                if (mainDeckView) {
+                    for (let cardContainer of mainDeckView.querySelectorAll(".card-container")) {
+                        let card = cardContainer.querySelector("img");
+                        let image = card.src;
+                        image = image.substring(image.lastIndexOf("/") + 1);
+    
+                        for (let i = 0; i < Number(cardContainer.querySelector(".num").innerText); i++) {
+                            mainDeck.push(image);
+                        }
+                    }
+                }
 
-                    for (let i = 0; i < Number(cardContainer.querySelector(".num").innerText); i++) {
-                        mainDeck.push(image);
+                if (gDeckView) {
+                    for (let cardContainer of gDeckView.querySelectorAll(".card-container")) {
+                        let card = cardContainer.querySelector("img");
+                        let image = card.src;
+                        image = image.substring(image.lastIndexOf("/") + 1);
+    
+                        for (let i = 0; i < Number(cardContainer.querySelector(".num").innerText); i++) {
+                            gDeck.push(image);
+                        }
                     }
                 }
 
                 let result = {
                     deckImages: deckImages,
                     rideDeck: rideDeck,
-                    mainDeck: mainDeck
+                    mainDeck: mainDeck,
+                    gDeck: gDeck
                 };
 
                 let form = document.createElement("form");
